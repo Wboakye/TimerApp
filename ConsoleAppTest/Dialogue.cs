@@ -1,39 +1,10 @@
 ﻿using System;
-using System.Threading;
-using System.Collections.Generic;
 
 
 namespace ConsoleAppTest
 {
     partial class Program
     {
-        static void Main(string[] args)
-        {
-            List<Reminder> reminders = new List<Reminder>();
-            int reminderItem = 0;
-            NumberOfReminders numberOfReminders = new NumberOfReminders();
-
-            bool proceed = true;
-            do
-            {
-                while (proceed)
-                {
-                    Dialogue dialogue = new Dialogue(reminderItem);
-                    Reminder reminder = dialogue.StartDialogue(numberOfReminders);
-                    proceed = dialogue.CheckForMore();
-                    reminders.Add(reminder);
-
-                    Thread reminderThread = new Thread(new ThreadStart(reminders[reminderItem].SetReminder));
-                    reminderThread.Start();
-
-                    reminderItem++;
-                    numberOfReminders.number++;
-                }
-
-            } while (numberOfReminders.number > 0);
-        }
-
-
         public class Dialogue
         {
             private string introduction = "What can I remind you about?";
